@@ -1,0 +1,87 @@
+@startuml "core-class-diagran"
+
+
+interface IMovie {
+    String getTitle()
+    Date getReleaseDate()
+    Time getDuration()
+    IRating getRating()
+    Boolean isInWatchlist()
+    int getRatingNumber()
+    void setRating(IRating rating)
+    setIsInWatchlist(Boolean trueOrFalse)
+    void setTitle(String title)
+    void setDuration(Time duration)
+    void setReleaseDate(Date releaseDate)
+    String getID()
+    Collection<IActor> getCast()
+    void addActor(IActor actor)
+    void removeActor(IActor actor)
+    String getID()
+}
+
+class Movie {
+    - String title
+    - Date releaseDate
+    - Time duration
+    - IRating rating
+    - Boolean watchlist
+    - String ID
+    - Collection<IActor> cast
+    - String ID
+    + Movie(String title, Time duration, Date releaseDate)
+    + Movie(String title, Time duration)
+    - Boolean checkIfNull(Object input)
+}
+
+interface IRating {
+    int getRating()
+    String getComment()
+    String toString()
+    void setRating(int rating)
+    void setComment()
+}
+
+class Rating {
+    - int rating
+    - String comment
+    + Rating(int rating)
+    + Rating(int rating, String comment)
+    - boolean isValidRating(int rating)
+    - boolean isValidComment(String comment)
+}
+
+class MovieList {
+    - List<IMovie> movieList
+    + IMovie getMovie(String title)
+    + Collection<IMovie> getMovies()
+    + void addMovie(IMovie movie)
+    + void removeMovie(IMovie movie)
+    + Iterator<IMovie> iterator()
+    + Collection<IAcor> getCast(IMovie movie)
+}
+
+interface IActor {
+    String getName()
+    Collection<IMovie> getStarredMovies()
+    void starredInMovie(IMovie movie) throws IllegalStateException
+    void removeMovieFromStarredList(IMovie movie) throws IllegalArgumentException
+}
+
+class Actor {
+    - String name
+    - Collection<IMovie> starredMovies
+    - final Collection<Character> invalidChars
+    + Actor(String name)
+}
+
+IMovie "movies: *  ." <|--- MovieList
+IRating "rating: 1  ." <|--- Movie
+IMovie "moviesStarredIn * " --- "actorsInMovie *" IActor
+IMovie <|.. Movie
+IRating <|.. Rating
+IActor <|.. Actor
+
+
+
+@enduml

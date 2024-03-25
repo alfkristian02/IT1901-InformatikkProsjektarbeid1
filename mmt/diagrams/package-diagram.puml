@@ -1,0 +1,59 @@
+@startuml "package-diagram"
+
+package "mmt" {
+  component "core" { 
+    folder "mmt.core" {  
+    }
+    folder "mmt.json" {  
+    }
+  }
+
+  component "fxui" { 
+    folder "mmt.fxui" {  
+    }
+  }
+
+  component "resources"{
+    component "fxml"{ 
+  }
+  }
+
+  component "jackson"{
+    
+  }
+
+   component "core" { 
+    folder "mmt.core" {  
+    }
+    folder "mmt.json" {  
+    }
+  }
+
+  component "rest"{
+      folder "restapi"{
+      }
+      folder "restserver"{
+      }
+  }
+
+  component "jakarta"{
+    
+  }
+
+  component "jersey"{
+    
+  }
+  
+}
+
+restapi ..> restserver
+mmt.fxui ..> restapi
+mmt.fxui ..> mmt.core
+mmt.fxui ..> fxml
+mmt.json ..> jackson
+rest ..> mmt.core
+rest ..> mmt.json
+rest ..> jersey
+rest ..> jakarta
+
+@enduml
